@@ -177,6 +177,34 @@ $(function () {
     setTimeout(done, 0)
   })
 
+  QUnit.test('should not show a collapse when initialized with "hide" if already hidden', function (assert) {
+    assert.expect(0)
+    var done = assert.async()
+
+    $('<div class="collapse"></div>')
+      .appendTo('#qunit-fixture')
+      .on('show.bs.collapse', function () {
+        assert.ok(false, 'showing a previously-uninitialized hidden collapse when "hide" method called')
+      })
+      .bootstrapCollapse('hide')
+
+    setTimeout(done, 0)
+  })
+
+  QUnit.test('should hide a collapse when initialized with "hide" if not already hidden', function (assert) {
+    assert.expect(1)
+    var done = assert.async()
+
+    $('<div class="collapse in"></div>')
+      .appendTo('#qunit-fixture')
+      .on('hide.bs.collapse', function () {
+        assert.ok(true, 'hiding a previously-uninitialized shown collapse when "hide" method called')
+      })
+      .bootstrapCollapse('hide')
+
+    setTimeout(done, 0)
+  })
+
   QUnit.test('should remove "collapsed" class from active accordion target', function (assert) {
     assert.expect(3)
     var done = assert.async()
